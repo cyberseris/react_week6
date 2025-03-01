@@ -16,7 +16,7 @@ export default function CartPage(){
     const getCart = async() => {
         try{
             const resGetCart = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/cart`);
-            setCart(Array.isArray(resGetCart.data.data.carts)?resGetCart.data.data.carts:[]);
+            setCart(resGetCart.data.data.carts);
             /* console.log("resGetCart.data.data.carts",resGetCart.data.data.carts) */
             getTotalPrice();
         }catch(error){
@@ -282,7 +282,9 @@ export default function CartPage(){
                         ></textarea>
                     </div>
                     <div className="text-end">
-                        <button type="submit" className="btn btn-danger">
+                        <button type="submit" className="btn btn-danger" disabled={
+                            cart.length==0
+                        }>
                         送出訂單
                         </button>
                     </div>
